@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: famme-products
+  datasource:
+    url: jdbc:postgresql://localhost:5432/famme_products
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.famme: DEBUG
+    org.springframework.jdbc: DEBUG
