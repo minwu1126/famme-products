@@ -22,7 +22,7 @@ data class ProductVariant(
     val title: String?,
     val price: String?,
     val sku: String?,
-    @JsonProperty("inventory_quantity")
+    @JsonProperty("inventoryQuantity")
     val inventoryQuantity: Int?
 )
 
@@ -45,7 +45,7 @@ data class FammeVariant(
     val title: String?,
     val price: String,
     val sku: String?,
-    @JsonProperty("inventory_quantity")
+    @JsonProperty("inventoryQuantity")
     val inventoryQuantity: Int?
 )
 
