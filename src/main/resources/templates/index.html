@@ -4,155 +4,500 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Famme Products</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/themes/light.css" />
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/shoelace-autoloader.js"></script>
+    <!-- Web Awesome - Next Generation of Shoelace -->
+    <link rel="stylesheet" href="https://backers.webawesome.com/assets/web-awesome.css" />
+    <script type="module" src="https://backers.webawesome.com/assets/web-awesome.js"></script>
+    <!-- HTMX Latest -->
     <script src="https://unpkg.com/htmx.org@2.0.5"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-        }
-        .header {
+            padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            color: white;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .section {
-            background: white;
+
+        .card-content {
             padding: 2rem;
+        }
+
+        .action-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .primary-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
-        .load-button-container {
-            text-align: center;
-            margin-bottom: 2rem;
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+        .stats-container {
+            display: flex;
             gap: 1rem;
-            margin-bottom: 1rem;
+            margin-left: auto;
+            flex-wrap: wrap;
         }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin: 0;
+        }
+
         .table-container {
             overflow-x: auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
         }
+
         th, td {
-            padding: 12px;
+            padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #e9ecef;
         }
+
         th {
-            background-color: #f8f9fa;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
             font-weight: 600;
             color: #495057;
+            position: sticky;
+            top: 0;
         }
+
         tr:hover {
-            background-color: #f8f9fa;
+            background: linear-gradient(45deg, #f8f9ff, #f0f4ff);
         }
+
         .price {
-            font-weight: 600;
+            font-weight: 700;
             color: #28a745;
+            font-size: 1.1rem;
         }
+
         .loading {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             color: #6c757d;
         }
+
         .no-results {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             color: #6c757d;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-field {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-label {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            padding: 0 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        .submit-button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            min-width: 200px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .success-animation {
+            animation: successPulse 0.6s ease-out;
+        }
+
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .action-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .stats-container {
+                margin-left: 0;
+                justify-content: center;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- HEADER -->
-    <div class="header">
-        <h1>🛍️ Famme Products</h1>
-        <p>Spring Boot + HTMX + Shoelace + PostgreSQL</p>
+<div class="app-container">
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <h1 class="hero-title">🚀 Famme Products</h1>
+        <p class="hero-subtitle">Modern Product Management with Cutting-Edge Technology</p>
+        <div class="tech-stack-badges">
+            <span class="tech-badge">Spring Boot 3.5.3</span>
+            <span class="tech-badge">Kotlin 2.1.0</span>
+            <span class="tech-badge">JDK 24</span>
+            <span class="tech-badge">HTMX 2.0.5</span>
+            <span class="tech-badge">Web Awesome</span>
+            <span class="tech-badge">PostgreSQL</span>
+        </div>
     </div>
 
-    <!-- BUTTON TO LOAD PRODUCTS -->
-    <div class="section">
-        <div class="load-button-container">
-            <sl-button variant="primary" size="large"
-                       hx-get="/products"
-                       hx-target="#products-container">
-                <sl-icon name="database" slot="prefix"></sl-icon>
-                Load Products from Database
-            </sl-button>
+    <!-- MAIN PRODUCT MANAGEMENT CARD -->
+    <div class="main-card">
+        <div class="card-header">
+            <h2 style="margin: 0; font-size: 1.8rem;">📦 Product Catalog Management</h2>
+            <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Load, view, and manage your product inventory</p>
         </div>
 
-        <!-- TABLE WITH PRODUCTS -->
-        <div id="products-container" class="table-container">
-            <div class="no-results">
-                <sl-icon name="inbox" style="font-size: 3rem; color: #dee2e6;"></sl-icon>
-                <p>Click the button above to load products from the database.</p>
+        <div class="card-content">
+            <!-- ACTION SECTION -->
+            <div class="action-section">
+                <button class="primary-button"
+                        hx-get="/products"
+                        hx-target="#products-container">
+                    🗄️ Load Products from Database
+                </button>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <p class="stat-number" id="product-count">0</p>
+                        <p class="stat-label">Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-number">✨</p>
+                        <p class="stat-label">Status</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOADING INDICATOR -->
+            <div id="loading" class="loading htmx-indicator">
+                <wa-spinner style="--size: 3rem; color: #667eea;"></wa-spinner>
+                <p style="margin-top: 1rem;">Fetching products from PostgreSQL database...</p>
+            </div>
+
+            <!-- PRODUCTS TABLE CONTAINER -->
+            <div id="products-container" class="table-container">
+                <div class="no-results">
+                    <wa-icon name="inbox" style="font-size: 4rem; color: #dee2e6;"></wa-icon>
+                    <p style="margin-top: 1rem; font-size: 1.1rem;">Click the button above to load products from the database.</p>
+                    <p style="color: #9ca3af; margin-top: 0.5rem;">Your products will appear here in a beautiful table.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- FORM TO ADD NEW PRODUCTS (shows after table is loaded) -->
-    <div class="section" id="add-product-section" style="display: none;">
-        <h3>➕ Add New Product</h3>
-        <p>Add a new product to the database. The table will update automatically without page reload.</p>
+    <!-- ADD PRODUCT FORM SECTION -->
+    <div class="form-section" id="add-product-section" style="display: none;">
+        <h3 class="form-title">➕ Add New Product</h3>
+        <p style="text-align: center; opacity: 0.9; margin-bottom: 2rem;">Add a new product to your database with real-time updates</p>
 
         <form hx-post="/products"
-              hx-target="#products-container">
-            <div class="form-row">
-                <sl-input name="title" label="Product Title" required
-                          placeholder="e.g., Premium Headphones"></sl-input>
-                <sl-input name="handle" label="Product Handle" required
-                          placeholder="e.g., premium-headphones"></sl-input>
+              hx-target="#products-container"
+              class="product-form">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">Product Title</label>
+                    <input class="form-input" name="title" required
+                           placeholder="e.g., Premium Wireless Headphones">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Product Handle</label>
+                    <input class="form-input" name="handle" required
+                           placeholder="e.g., premium-wireless-headphones">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Vendor</label>
+                    <input class="form-input" name="vendor"
+                           placeholder="e.g., AudioTech">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Product Type</label>
+                    <input class="form-input" name="productType"
+                           placeholder="e.g., Electronics">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Price ($)</label>
+                    <input class="form-input" name="price" type="number" step="0.01"
+                           placeholder="e.g., 299.99">
+                </div>
             </div>
-            <div class="form-row">
-                <sl-input name="vendor" label="Vendor"
-                          placeholder="e.g., AudioTech"></sl-input>
-                <sl-input name="productType" label="Product Type"
-                          placeholder="e.g., Electronics"></sl-input>
-            </div>
-            <div class="form-row">
-                <sl-input name="price" label="Price ($)" type="number" step="0.01"
-                          placeholder="e.g., 299.99"></sl-input>
-            </div>
-            <sl-button type="submit" variant="success" size="large">
-                <sl-icon name="plus-circle" slot="prefix"></sl-icon>
-                Add Product to Database
-            </sl-button>
+            <button type="submit" class="submit-button">
+                🚀 Add Product to Database
+            </button>
         </form>
     </div>
 </div>
 
+<!-- FLOATING ACTION BUTTON -->
+<div class="floating-action">
+    <button class="fab" onclick="scrollToTop()" title="Scroll to top">
+        ↑
+    </button>
+</div>
+
 <script>
+    // Enhanced functionality with better UX
+    let productCount = 0;
+
     // Show the add product form after products are loaded
     document.body.addEventListener('htmx:afterSwap', function(evt) {
         if (evt.detail.target.id === 'products-container') {
-            document.getElementById('add-product-section').style.display = 'block';
+            const addSection = document.getElementById('add-product-section');
+            if (addSection) {
+                addSection.style.display = 'block';
+                addSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Update product count
+            const table = evt.detail.target.querySelector('table');
+            if (table) {
+                productCount = table.querySelectorAll('tbody tr').length;
+                document.getElementById('product-count').textContent = productCount;
+            }
         }
     });
 
-    // Clear form after successful submission
+    // Clear form and show success animation after submission
     document.body.addEventListener('htmx:afterRequest', function(evt) {
         if (evt.detail.elt.tagName === 'FORM' && evt.detail.xhr.status === 200) {
             evt.detail.elt.reset();
+
+            // Success animation
+            const button = evt.detail.elt.querySelector('.submit-button');
+            button.classList.add('success-animation');
+            button.textContent = '✅ Product Added Successfully!';
+
+            setTimeout(() => {
+                button.classList.remove('success-animation');
+                button.textContent = '🚀 Add Product to Database';
+            }, 2000);
         }
+    });
+
+    // Smooth scroll to top
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Loading state management
+    document.body.addEventListener('htmx:beforeRequest', function(evt) {
+        if (evt.detail.elt.classList.contains('primary-button')) {
+            evt.detail.elt.textContent = '⏳ Loading...';
+            evt.detail.elt.disabled = true;
+        }
+    });
+
+    document.body.addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.elt.classList.contains('primary-button')) {
+            evt.detail.elt.textContent = '🗄️ Load Products from Database';
+            evt.detail.elt.disabled = false;
+        }
+    });
+
+    // Form input enhancements
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
     });
 </script>
 </body>
